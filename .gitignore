@@ -1,0 +1,13 @@
+/node_modules
+/.vscode
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/info
+.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+project_name.zip

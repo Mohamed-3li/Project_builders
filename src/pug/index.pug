@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        block titlePage
+            title Document
+        //- All Files Used In Project
+        include 0-helpers/variaples
+        include 0-helpers/mixin
+        include 2-base/links
+    body
+        block header
+            //- Includes Header Section File
+            include 1-layout/header
+
+
+        block footer
+            //- Includes footer Section File
+            include 1-layout/footer
+        // This Is All Plugins used 
+        include 2-base/scripts

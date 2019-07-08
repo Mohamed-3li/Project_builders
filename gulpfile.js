@@ -43,7 +43,7 @@ function css() {
 // This Function For Js Task
 function js() {
     return watch('src/scripts/**/*.js', function () {
-        src('src/scripts/*.js')
+        src('src/scripts/**/*.js')
         .pipe(plumber())
         .pipe(concat('main.js'))
         .pipe(uglify())

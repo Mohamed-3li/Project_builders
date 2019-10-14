@@ -1,0 +1,79 @@
+// Prefix CSS3 Properties - Accept Arguments => Property Name, Property Values, Vendor Prefixes - Example: @include prefixer(transition, all .3s ease, webkit moz o)
+
+@mixin prefixer($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+}
+
+  // Opacity Mixin For All Browsers - Accept Argument => Property - ValueV Example: @include opacity(.5)
+
+
+@mixin opacity($value) {
+    zoom: 1;
+    $opacity-ie: $value * 100;
+    filter: alpha(opacity = $opacity-ie);
+    opacity: $value;
+}
+
+// Animation Mixin For All Browser - Accept Argument => Animation Name - Example: @include keyframes(SlideUpAndDown)
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// Overlay Mixin - Accept Argument => Color - Example: @include overlay(black, .5);
+@mixin overlay($opacity) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: $opacity;
+}
+
+// Center Element Horizontally and Vertically - Accept No Arguments - Example: @include centerer();
+@mixin center($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    @include prefixer(transform, translate(-50%, -50%), webkit moz o);
+}
+
+@mixin alignLeft() {
+    position: absolute;
+    top: 0%;
+    left: -1%;
+    @include prefixer(transform, translate(25%, 50%), webkit moz o);
+}
+
+// Circle Mixin - Accept Argument => Dimensions - Example: @include circle(100px);
+@mixin circle($dimension) {
+    width: $dimension;
+    height: $dimension;
+    border-radius: 50%;
+}
+
+// Background Cover Mixin - Accept No Arguments - Example: @include cover();
+@mixin cover() {
+    @include prefixer(background-size, cover, webkit moz o);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+
+// Background Gradient Mixin - Accept No Arguments - Example: @include linear-gradient();
+@mixin linear-gradient($direction, $color-stops, $color-stops-2) {
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops, $color-stops-2);
+    background: linear-gradient($direction, $color-stops, $color-stops-2);
+}

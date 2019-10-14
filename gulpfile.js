@@ -18,7 +18,7 @@ function html() {
         src('src/pug/*.pug')
         .pipe(plumber())
         .pipe(pug({pretty: true}))
-        .pipe(dest('build'))
+        .pipe(dest('assets'))
         .pipe(livereload())
         livereload.listen()
     }) 
@@ -34,7 +34,24 @@ function css() {
         .pipe(prefixer('last 2 versions'))
         .pipe(concat('style.css'))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('build/css'))
+        .pipe(dest('assets/css'))
+        .pipe(livereload())
+        livereload.listen()
+    })
+}
+
+
+// This Function For Css Task
+function responsive() {
+    return watch('src/styles/**/*.scss', function () {
+        src('src/styles/2-base/responsive.scss')
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(prefixer('last 2 versions'))
+        .pipe(concat('responsive.css'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest('assets/css'))
         .pipe(livereload())
         livereload.listen()
     })
@@ -48,7 +65,7 @@ function js() {
         .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
-        .pipe(dest('build/js'))
+        .pipe(dest('assets/js'))
         .pipe(livereload())
         livereload.listen()
     })
@@ -69,7 +86,7 @@ function images() {
                 ]
             })
         ]))
-        .pipe(dest('dist/images'))
+        .pipe(dest('assets/images'))
         .pipe(livereload())
         livereload.listen()
     })
@@ -77,9 +94,9 @@ function images() {
 
 // This Function For Compress Files 
 function compress() {
-    return watch('build/**/*.*', function () {
-        src('build/**/*.*')
-        .pipe(zip('.zip'))
+    return watch('assets/**/*.*', function () {
+        src('assets/**/*.*')
+        .pipe(zip('project-name.zip'))
         .pipe(dest('.'))
     })
 }
@@ -87,7 +104,8 @@ function compress() {
 // Watching All Tasks 
 exports.html = html;
 exports.css = css
+exports.responsive = responsive
 exports.js = js
 exports.images = images
 exports.compress = compress
-exports.default = parallel(html, css, js, images, compress);
+exports.default = parallel(html, css, responsive, js, images, compress);

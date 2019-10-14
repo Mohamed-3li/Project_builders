@@ -1,0 +1,17 @@
+//- This File Includes All PUG Mixin
+
+//- Social Media Icons
+mixin socialMedia(unstyledList, inlineList)
+    // Social Media Headeer Top
+    ul(class=unstyledList)
+        for link, icon in socialClass
+            li(class=inlineList)
+                a(href=link): i(class=icon)
+
+//- Nav Bar Links 
+mixin navLinks(unstyledList, inlineList)
+    // Nav Bar Links
+    ul(class=unstyledList)
+        for item , data in navLinks
+            li(class=inlineList)
+                a(href="#" data-value=data)= item
